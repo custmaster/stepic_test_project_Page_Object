@@ -13,10 +13,10 @@ class ProductPage(BasePage):
 			*ProductPageLocators.NAME_PRODUCT).text
 		name_product_in_basket = self.browser.find_element(
 			*ProductPageLocators.NAME_PRODUCT_IN_MESSAGE_ADD_TO_BASKET).text
-		assert name_product in name_product_in_basket, "Product name does not match"
+		assert name_product == name_product_in_basket, "Product name does not match"
 	def check_price_product_in_massage_add_to_basket(self):
 		price_product = self.browser.find_element(
 			*ProductPageLocators.PRICE_PRODUCT).text
 		price_product_in_basket = self.browser.find_element(
 			*ProductPageLocators.PRICE_PRODUCT_IN_MESSAGE_ADD_TO_BASKET).text
-		assert price_product in price_product_in_basket, "Product price does not match"
+		assert price_product == price_product_in_basket, "Product price does not match"
