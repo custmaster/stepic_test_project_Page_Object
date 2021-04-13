@@ -12,3 +12,4 @@ class ProductPageLocators():
 	PRICE_PRODUCT = (By.CSS_SELECTOR, ".col-sm-6.product_main .price_color")
 	NAME_PRODUCT_IN_MESSAGE_ADD_TO_BASKET = (By.CSS_SELECTOR, ".alertinner strong")
 	PRICE_PRODUCT_IN_MESSAGE_ADD_TO_BASKET = (By.CSS_SELECTOR, ".alert-info .alertinner strong")
+	SUCCESS_MESSAGE=(By.CSS_SELECTOR,".alert-success")
