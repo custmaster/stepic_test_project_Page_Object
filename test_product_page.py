@@ -5,6 +5,43 @@ from .pages.login_page import LoginPage
 from .pages.basket_page import BasketPage
 
 
+# def test_registration(browser):
+# 	email = str(time.time()) + "@fakemail.org"
+# 	password = "azino777!"
+# 	link = "http://selenium1py.pythonanywhere.com/ru/accounts/login/"
+# 	page = LoginPage(browser, link)
+# 	page.open()
+# 	page.register_new_user(email, password)
+
+class TestUserAddToBasketFromProductPage():
+
+	@pytest.fixture(scope="function", autouse=True)
+	def setup(self, browser):
+		email = str(time.time()) + "@fakemail.org"
+		password = "azino777!"
+		link = "http://selenium1py.pythonanywhere.com/ru/accounts/login/"
+		page = LoginPage(browser, link)
+		page.open()
+		page.register_new_user(email, password)
+		# time.sleep(7)
+		page.should_be_authorized_user()
+
+	def test_user_can_add_product_to_basket(self, browser):
+		link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+		page = ProductPage(browser, link)
+		page.open()
+		page.add_product_to_basket()
+		page.check_nane_product_in_massage_add_to_basket()
+		page.check_price_product_in_massage_add_to_basket()
+
+	@pytest.mark.xfail
+	def test_user_cant_see_success_message_after_adding_product_to_basket(self, browser):
+		link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+		page = ProductPage(browser, link)
+		page.open()
+		page.add_product_to_basket()
+		page.should_not_be_success_massage()
+
 @pytest.mark.skip
 @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
@@ -27,7 +64,7 @@ def test_guest_can_add_product_to_basket(browser, link):
 
 @pytest.mark.skip
 @pytest.mark.xfail
-def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser): #Проверяем, что нет сообщения об успехе с помощью is_not_element_present
 	link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
 	page = ProductPage(browser, link)
 	page.open()
@@ -36,7 +73,7 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
 	page.should_not_be_success_massage()
 
 @pytest.mark.skip
-def test_guest_cant_see_success_message(browser):
+def test_guest_cant_see_success_message(browser): #Проверяем, что нет сообщения об успехе с помощью is_not_element_present
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"
     page = ProductPage(browser, link)
     page.open()
@@ -45,7 +82,7 @@ def test_guest_cant_see_success_message(browser):
 
 @pytest.mark.skip
 @pytest.mark.xfail
-def test_message_disappeared_after_adding_product_to_basket(browser):
+def test_message_disappeared_after_adding_product_to_basket(browser): #Проверяем, что нет сообщения об успехе с помощью is_disappeared
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"
     page = ProductPage(browser, link)
     page.open()
@@ -69,7 +106,7 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
 	login_page = LoginPage(browser, browser.current_url)
 	login_page.should_be_login_page()
 
-
+@pytest.mark.skip
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
 	link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"
 	page = ProductPage(browser, link)
@@ -78,3 +115,4 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
 	basket_page = BasketPage(browser, browser.current_url)
 	basket_page.check_that_the_basket_is_empty()
 	basket_page.check_reports_that_the_basket_is_empty()
+
