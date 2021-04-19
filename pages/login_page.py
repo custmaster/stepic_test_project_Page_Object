@@ -5,7 +5,6 @@ import time
 
 
 class LoginPage(BasePage):
-
     def register_new_user(self, email, password):
         register_form_for_email = self.browser.find_element(*LoginPageLocators.REGISTER_FORM_FOR_EMAIL)
         register_form_for_password = self.browser.find_element(*LoginPageLocators.REGISTER_FORM_FOR_PASSWORD)
